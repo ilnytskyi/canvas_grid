@@ -10,14 +10,6 @@ var Point = (function () {
     }
     return Point;
 }());
-var PointCollection = (function () {
-    function PointCollection() {
-    }
-    PointCollection.prototype.push = function (point) {
-        this.points.push(point);
-    };
-    return PointCollection;
-}());
 var Line = (function () {
     function Line(from, to) {
         this.from = from;
@@ -33,9 +25,7 @@ var Shape = (function () {
 var Triangle = (function (_super) {
     __extends(Triangle, _super);
     function Triangle(p1, p2, p3) {
-        this.p1 = p1;
-        this.p2 = p2;
-        this.p3 = p3;
+        this.points = [p1, p2, p3];
     }
     return Triangle;
 }(Shape));
@@ -91,7 +81,9 @@ var Grid = (function () {
         this.points = points;
     };
     Grid.prototype.putPoint = function (point) {
-        this.cx.fillRect(point.x, point.y, this.config.pointSize, this.config.pointSize);
+        var x = point.x - this.config.pointSize / 2;
+        var y = point.y - this.config.pointSize / 2;
+        this.cx.fillRect(x, y, this.config.pointSize, this.config.pointSize);
     };
     Grid.prototype.renderPoints = function () {
         var _this = this;
@@ -116,17 +108,32 @@ var Grid = (function () {
         if (!this.config.showLines)
             return;
         this.points.forEach(function (row, i) {
+            //vertical
             row.forEach(function (point, j) {
                 if (j + 1 >= _this.config.countRows)
                     return;
                 var lineV = new Line(_this.points[i][j], _this.points[i][j + 1]);
                 _this.drawLine(lineV);
             });
+            //horizontal
             row.forEach(function (point, j) {
                 if (i + 1 >= _this.config.countColumns)
                     return;
                 var lineH = new Line(_this.points[i][j], _this.points[i + 1][j]);
                 _this.drawLine(lineH);
+            });
+            //shake
+            row.forEach(function (point, j) {
+                if (j + 1 >= _this.config.countRows || i + 1 >= _this.config.countColumns)
+                    return;
+                var p1 = _this.points[i][j];
+                var p2 = _this.points[i][j];
+                if (j % 2 == 1 && (i - 1 > 0)) {
+                    p1 = _this.points[i][j];
+                    p2 = _this.points[i + 1][j + 1];
+                }
+                var lineS = new Line(p1, p2);
+                _this.drawLine(lineS);
             });
         });
     };

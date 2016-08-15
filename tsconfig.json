@@ -7,7 +7,6 @@
   },
   "files": [
     "ts/Point.ts",
-    "ts/PointCollection.ts",
     "ts/Line.ts",
     "ts/Shape.ts",
     "ts/Triangle.ts",

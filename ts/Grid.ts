@@ -60,7 +60,9 @@ class Grid {
     }
 
     putPoint(point:Point) {
-        this.cx.fillRect(point.x, point.y, this.config.pointSize, this.config.pointSize);
+        let x = point.x - this.config.pointSize / 2;
+        let y = point.y - this.config.pointSize / 2;
+        this.cx.fillRect(x, y, this.config.pointSize, this.config.pointSize);
     }
 
     renderPoints() {
@@ -84,19 +86,32 @@ class Grid {
     renderLines() {
         if (!this.config.showLines) return;
         this.points.forEach((row, i) => {
-
+            //vertical
             row.forEach((point, j) => {
-                if (j + 1 >= this.config.countRows ) return;
+                if (j + 1 >= this.config.countRows) return;
                 var lineV = new Line(this.points[i][j], this.points[i][j + 1]);
                 this.drawLine(lineV);
 
             });
-
+            //horizontal
             row.forEach((point, j) => {
-                if (i + 1 >= this.config.countColumns ) return;
+                if (i + 1 >= this.config.countColumns) return;
                 var lineH = new Line(this.points[i][j], this.points[i + 1][j]);
                 this.drawLine(lineH);
 
+
+            });
+            //shake
+            row.forEach((point, j) => {
+                if (j + 1 >= this.config.countRows || i + 1 >= this.config.countColumns) return;
+                var p1 = this.points[i][j];
+                var p2 = this.points[i][j];
+                if (j % 2 == 1 && (i-1 > 0)) {
+                    p1 = this.points[i][j];
+                    p2 = this.points[i + 1][j + 1];
+                }
+                var lineS = new Line(p1, p2);
+                this.drawLine(lineS);
 
             });
         })
