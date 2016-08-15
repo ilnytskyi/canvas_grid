@@ -11,7 +11,7 @@ console.log(t1);
 
 var g = new Grid({
     id: 'canvas',
-    width: 500,
-    height: 500
+    width: 900,
+    height: 900
 });
 g.init();
