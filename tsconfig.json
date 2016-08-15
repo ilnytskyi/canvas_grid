@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "outFile": "js/grid/init.js"
+  },
+  "files": [
+    "ts/Point.ts",
+    "ts/PointCollection.ts",
+    "ts/Line.ts",
+    "ts/Shape.ts",
+    "ts/Triangle.ts",
+    "ts/Grid.ts",
+
+    "ts/init.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
