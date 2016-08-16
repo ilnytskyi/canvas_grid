@@ -35,9 +35,9 @@ var Grid = (function () {
             id: 'grid',
             countColumns: 20,
             countRows: 20,
-            pointDispersion: 50,
-            width: screen.width,
-            height: screen.height,
+            pointDispersion: 35,
+            width: screen.width - 10,
+            height: screen.height - 10,
             fps: 29,
             pointColor: '#000',
             lineColor: '#ccc',
@@ -70,10 +70,10 @@ var Grid = (function () {
     Grid.prototype.generatePoints = function () {
         var points = [];
         for (var i = 0; i < this.config.countRows; i++) {
-            var x = i * this.config.width / this.config.countRows;
             var row = [];
             for (var j = 0; j < this.config.countColumns; j++) {
-                var y = j * this.config.height / this.config.countColumns;
+                var x = i * this.config.width / this.config.countRows + Math.floor((Math.random() * this.config.pointDispersion) - this.config.pointDispersion);
+                var y = j * this.config.height / this.config.countColumns + Math.floor((Math.random() * this.config.pointDispersion) - this.config.pointDispersion);
                 row.push(new Point(x, y));
             }
             points.push(row);
@@ -151,8 +151,8 @@ var Grid = (function () {
     };
     Grid.prototype.init = function () {
         this.generatePoints();
-        this.renderLines();
         this.renderPoints();
+        this.renderLines();
     };
     return Grid;
 }());
