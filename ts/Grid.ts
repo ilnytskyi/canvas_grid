@@ -8,9 +8,9 @@ class Grid {
             id: 'grid',
             countColumns: 20,
             countRows: 20,
-            pointDispersion: 35,
-            width: screen.width - 10,
-            height: screen.height - 10,
+            pointDispersion: 34,
+            width: screen.width,
+            height: screen.height,
             fps: 29,
             pointColor: '#000',
             lineColor: '#ccc',
@@ -50,8 +50,8 @@ class Grid {
         for (var i = 0; i < this.config.countRows; i++) {
             var row = [];
             for (var j = 0; j < this.config.countColumns; j++) {
-                var x = i * this.config.width / this.config.countRows + Math.floor((Math.random() * this.config.pointDispersion) - this.config.pointDispersion);
-                var y = j * this.config.height / this.config.countColumns + Math.floor((Math.random() * this.config.pointDispersion) - this.config.pointDispersion);
+                var x = i * this.config.width / this.config.countRows + Math.floor((Math.random() * this.config.pointDispersion) - this.config.pointDispersion) + this.config.pointDispersion;
+                var y = j * this.config.height / this.config.countColumns + Math.floor((Math.random() * this.config.pointDispersion) - this.config.pointDispersion) + this.config.pointDispersion;
                 row.push(new Point(x, y));
             }
             points.push(row);
@@ -98,7 +98,7 @@ class Grid {
                 var lineH = new Line(this.points[i][j], this.points[i + 1][j]);
                 this.drawLine(lineH);
             });
-            //shake
+            //snake
             row.forEach((point, j) => {
                 if (j + 1 >= this.config.countRows || i + 1 >= this.config.countColumns) return;
                 var p1 = this.points[i][j];
@@ -125,7 +125,7 @@ class Grid {
 
     init() {
         this.generatePoints();
-        this.renderPoints();
         this.renderLines();
+        this.renderPoints();
     }
 }

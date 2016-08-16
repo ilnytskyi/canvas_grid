@@ -35,9 +35,9 @@ var Grid = (function () {
             id: 'grid',
             countColumns: 20,
             countRows: 20,
-            pointDispersion: 35,
-            width: screen.width - 10,
-            height: screen.height - 10,
+            pointDispersion: 34,
+            width: screen.width,
+            height: screen.height,
             fps: 29,
             pointColor: '#000',
             lineColor: '#ccc',
@@ -72,8 +72,8 @@ var Grid = (function () {
         for (var i = 0; i < this.config.countRows; i++) {
             var row = [];
             for (var j = 0; j < this.config.countColumns; j++) {
-                var x = i * this.config.width / this.config.countRows + Math.floor((Math.random() * this.config.pointDispersion) - this.config.pointDispersion);
-                var y = j * this.config.height / this.config.countColumns + Math.floor((Math.random() * this.config.pointDispersion) - this.config.pointDispersion);
+                var x = i * this.config.width / this.config.countRows + Math.floor((Math.random() * this.config.pointDispersion) - this.config.pointDispersion) + this.config.pointDispersion;
+                var y = j * this.config.height / this.config.countColumns + Math.floor((Math.random() * this.config.pointDispersion) - this.config.pointDispersion) + this.config.pointDispersion;
                 row.push(new Point(x, y));
             }
             points.push(row);
@@ -122,7 +122,7 @@ var Grid = (function () {
                 var lineH = new Line(_this.points[i][j], _this.points[i + 1][j]);
                 _this.drawLine(lineH);
             });
-            //shake
+            //snake
             row.forEach(function (point, j) {
                 if (j + 1 >= _this.config.countRows || i + 1 >= _this.config.countColumns)
                     return;
@@ -151,8 +151,8 @@ var Grid = (function () {
     };
     Grid.prototype.init = function () {
         this.generatePoints();
-        this.renderPoints();
         this.renderLines();
+        this.renderPoints();
     };
     return Grid;
 }());
