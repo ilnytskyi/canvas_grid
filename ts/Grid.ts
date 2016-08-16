@@ -91,22 +91,28 @@ class Grid {
                 if (j + 1 >= this.config.countRows) return;
                 var lineV = new Line(this.points[i][j], this.points[i][j + 1]);
                 this.drawLine(lineV);
-
             });
             //horizontal
             row.forEach((point, j) => {
                 if (i + 1 >= this.config.countColumns) return;
                 var lineH = new Line(this.points[i][j], this.points[i + 1][j]);
                 this.drawLine(lineH);
-
-
             });
             //shake
             row.forEach((point, j) => {
                 if (j + 1 >= this.config.countRows || i + 1 >= this.config.countColumns) return;
                 var p1 = this.points[i][j];
                 var p2 = this.points[i][j];
-                if (j % 2 == 1 && (i-1 > 0)) {
+                if (i % 2 == 0  && j % 2 == 0) {
+                    p1 = this.points[i][j];
+                    p2 = this.points[i + 1][j + 1];
+                } else if (i % 2 == 0 && j % 2 == 1) {
+                    p1 = this.points[i + 1][j];
+                    p2 = this.points[i][j + 1];
+                } else if (i % 2 == 1 && j % 2 == 0) {
+                    p1 = this.points[i][j + 1];
+                    p2 = this.points[i + 1][j];
+                } else if (i % 2 == 1 && j % 2 == 1) {
                     p1 = this.points[i][j];
                     p2 = this.points[i + 1][j + 1];
                 }
@@ -119,7 +125,7 @@ class Grid {
 
     init() {
         this.generatePoints();
-        this.renderPoints();
         this.renderLines();
+        this.renderPoints();
     }
 }

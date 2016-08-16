@@ -128,7 +128,19 @@ var Grid = (function () {
                     return;
                 var p1 = _this.points[i][j];
                 var p2 = _this.points[i][j];
-                if (j % 2 == 1 && (i - 1 > 0)) {
+                if (i % 2 == 0 && j % 2 == 0) {
+                    p1 = _this.points[i][j];
+                    p2 = _this.points[i + 1][j + 1];
+                }
+                else if (i % 2 == 0 && j % 2 == 1) {
+                    p1 = _this.points[i + 1][j];
+                    p2 = _this.points[i][j + 1];
+                }
+                else if (i % 2 == 1 && j % 2 == 0) {
+                    p1 = _this.points[i][j + 1];
+                    p2 = _this.points[i + 1][j];
+                }
+                else if (i % 2 == 1 && j % 2 == 1) {
                     p1 = _this.points[i][j];
                     p2 = _this.points[i + 1][j + 1];
                 }
@@ -139,8 +151,8 @@ var Grid = (function () {
     };
     Grid.prototype.init = function () {
         this.generatePoints();
-        this.renderPoints();
         this.renderLines();
+        this.renderPoints();
     };
     return Grid;
 }());
